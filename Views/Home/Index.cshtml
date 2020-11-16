@@ -1,4 +1,5 @@
-﻿@{
+﻿@addTagHelper *, Microsoft.FeatureManagement.AspNetCore
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -6,3 +7,13 @@
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+
+<feature name="FeatureA">
+    <p>Feature A is enabled</p>
+</feature>
+<feature name="FeatureB">
+    <p>Feature B is enabled</p>
+</feature>
+<feature name="FeatureC">
+    <p>Feature C is enabled</p>
+</feature>
