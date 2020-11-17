@@ -25,6 +25,10 @@ namespace DotNetDay_201119
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSession();
+            services.AddHttpContextAccessor();
+            services.AddTransient<ISessionManager, FeatureCSessionManager>();
+
             services.AddControllersWithViews();
             services.AddFeatureManagement()
                 .AddFeatureFilter<PercentageFilter>();
@@ -45,7 +49,7 @@ namespace DotNetDay_201119
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseSession();
             app.UseRouting();
 
             app.UseAuthorization();
