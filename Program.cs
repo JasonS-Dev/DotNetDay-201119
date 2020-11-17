@@ -18,6 +18,10 @@ namespace DotNetDay_201119
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+                .ConfigureAppConfiguration(c =>
+                    {
+                    c.AddJsonFile("config/appsettings.json", optional: true, reloadOnChange: true);
+                    })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
