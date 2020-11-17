@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using ConfigMapFileProviderSample;
 
 namespace DotNetDay_201119
 {
@@ -20,7 +21,8 @@ namespace DotNetDay_201119
             Host.CreateDefaultBuilder(args)
                 .ConfigureAppConfiguration(c =>
                     {
-                    c.AddJsonFile("config/appsettings.json", optional: true, reloadOnChange: true);
+                    c.AddJsonFile(ConfigMapFileProvider.FromRelativePath("config"),
+                        "appsettings.json", optional: true, reloadOnChange: true);
                     })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
