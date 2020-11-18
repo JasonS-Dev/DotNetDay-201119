@@ -19,3 +19,23 @@
 </feature>
 
 @ViewData["OutputString"]
+
+<hr>
+<input type="button" id="json_trigger" value="JSON Features for SPA" />
+<br />
+<p>JSON OUTPUT:</p>
+<div id="json_output"></div>
+
+<script type="text/javascript" src="lib/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript">
+$("#json_trigger").click(function(){
+    $.ajax({
+        url: "@Url.Action("Features", "Home")",
+        type: 'GET',
+        dataType: 'json', // added data type
+        success: function(res) {
+            $("#json_output").text(JSON.stringify(res));
+        }
+    });
+})
+</script>
