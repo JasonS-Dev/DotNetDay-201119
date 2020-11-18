@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using DotNetDay_201119.Models;
 using Microsoft.FeatureManagement;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace DotNetDay_201119.Controllers
 {
@@ -56,6 +58,19 @@ namespace DotNetDay_201119.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public async Task<string> Features()
+        {
+            IAsyncEnumerable<string> features = this._featureManager.GetFeatureNamesAsync();
+            Dictionary<string, bool> frontendFeatures = new Dictionary<string, bool>();
+
+            await foreach (string feature in features)
+            {
+                frontendFeatures.Add(feature, this._featureManager.IsEnabledAsync(feature).Result);
+            }
+
+            return JsonSerializer.Serialize(frontendFeatures);
         }
     }
 }
